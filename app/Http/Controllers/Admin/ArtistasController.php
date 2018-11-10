@@ -14,7 +14,11 @@ class ArtistasController extends Controller
      */
     public function index()
     {
-        return view('admin.artistas.index');
+        $listaMigalhas= json_encode([
+            ["titulo"=>"Home","url"=>route('home')],
+            ["titulo"=>"Lista de Compras","url"=>""]
+        ]);
+        return view('admin.artistas.index',compact('listaMigalhas'));
         //
     }
 
