@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
+
 <pagina tamanho="4">
         <painel titulo="Administrador">
-                    Teste de conteudo
-
+        <migalhas v-bind:lista="{{$listaMigalhas}}"></migalhas>
+                
                    <div class="row">
                        <div class="col-md-6 ">
                           <caixa qtd="80" titulo="ARTISTAS NA PLATAFORMA" url="{{route('artistas.index')}}" cor="orange" icone="ion-ios-people"></caixa>
@@ -24,7 +25,7 @@
                         <caixa qtd="80" titulo="CONTRATOS FECHADOS" url="#" cor="blue" icone="ion ion-pie-graph"></caixa>
                         </div>
                     </div>
-
+                    
         </painel>
 </pagina>
 

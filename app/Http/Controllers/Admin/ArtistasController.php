@@ -15,8 +15,8 @@ class ArtistasController extends Controller
     public function index()
     {
         $listaMigalhas= json_encode([
-            ["titulo"=>"Home","url"=>route('home')],
-            ["titulo"=>"Lista de Compras","url"=>""]
+            ["titulo"=>"Home ","url"=>route('home')],
+            ["titulo"=>" / Lista de Artistas","url"=>""]
         ]);
         return view('admin.artistas.index',compact('listaMigalhas'));
         //
