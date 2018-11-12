@@ -18,7 +18,18 @@ class ArtistasController extends Controller
             ["titulo"=>"Home ","url"=>route('home')],
             ["titulo"=>" / Lista de Artistas","url"=>""]
         ]);
-        return view('admin.artistas.index',compact('listaMigalhas'));
+
+        $listaArtistas= json_encode([
+            ["id"=>1,"nome"=>"José Augusto","estado"=>"MA","cidade"=>"Caxias","tipo"=>"Cantor","cpf"=>"493.109.333-72"],
+            ["id"=>2,"nome"=>"Antonio Francisco","estado"=>"PE","cidade"=>"Aldeias Altas","tipo"=>"Dança","cpf"=>"493.108.331-72"],
+            ["id"=>3,"nome"=>"Deusdeth Costa","estado"=>"DF","cidade"=>"Codó","tipo"=>"Funk","cpf"=>"413.109.343-72"]
+
+        ]);
+
+
+
+
+        return view('admin.artistas.index',compact('listaMigalhas','listaArtistas'));
         //
     }
 
