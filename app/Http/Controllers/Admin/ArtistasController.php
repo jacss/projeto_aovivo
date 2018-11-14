@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Artista;
+
 class ArtistasController extends Controller
 {
     /**
@@ -19,12 +21,7 @@ class ArtistasController extends Controller
             ["titulo"=>" / Lista de Artistas","url"=>""]
         ]);
 
-        $listaArtistas= json_encode([
-            ["id"=>1,"nome"=>"José Augusto","estado"=>"MA","cidade"=>"Caxias","tipo"=>"Cantor","cpf"=>"493.109.333-72"],
-            ["id"=>2,"nome"=>"Antonio Francisco","estado"=>"PE","cidade"=>"Aldeias Altas","tipo"=>"Dança","cpf"=>"493.108.331-72"],
-            ["id"=>3,"nome"=>"Deusdeth Costa","estado"=>"DF","cidade"=>"Codó","tipo"=>"Funk","cpf"=>"413.109.343-72"]
-
-        ]);
+        $listaArtistas= json_encode(Artista::select('id','nome','sobrenome','nomeartistico','cpf','estado','cidade','especialidade','descricao')->get());
 
 
 
@@ -51,7 +48,30 @@ class ArtistasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request->all());
+        $data =$request->all();
+        $validacao =\Validator::make($data,[
+            "nome" => "required",
+            "sobrenome" => "required",
+            "nomeartistico" => "required",
+            "cpf" => "required",
+            "email" => "required",
+            "estado" => "required",
+            "cidade" => "required",
+            "especialidade" => "required",
+            "descricao" => "required",
+            "nota" => "required",
+            "tipoperfil" => "required",
+            "data" => "required"
+        ]);
+        if($validacao->fails()){
+            return redirect()->back()->withErrors($validacao)->withInput();
+        }
+
+        $data =$request->all();
+        Artista::create($data);
+        return redirect()->back();
+
     }
 
     /**

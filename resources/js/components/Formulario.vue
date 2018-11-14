@@ -10,7 +10,7 @@
 
 <script>
     export default {
-        props:['css','acao','method','enctype', 'token'],
+        props:['css','action','method','enctype', 'token'],
         data: function(){
             return{
                 alteraMethod:""
