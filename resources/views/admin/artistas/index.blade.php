@@ -5,7 +5,7 @@
     <pagina tamanho="12">
     @if($errors->all())
     <div class="alert alert-danger alert-dismissible text-center" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hiden></span></button>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidd></span></button>
     @foreach($errors->all() as $key => $value)
         <li><strong>{{$value}}</strong></li>
     @endforeach
@@ -24,7 +24,7 @@
                 v-bind:titulos="['#','Nome','Sobrenome','Nome Artístico','Cpf','Estado','Cidade','Especialidade','Descrição']"
                 v-bind:itens="{{$listaArtistas}}"
                 ordem="desc" ordemcol="1"
-                criar="criar" detalhe="detalhe" editar="editar" deletar="deletar" token="123456"
+                criar="criar" detalhe="/admin/artistas/" editar="/admin/artistas/" deletar="/admin/artistas/" token="{{csrf_token()}}"
                 modal ="sim"
                 ></tabela-lista>
 
@@ -34,62 +34,61 @@
     <modal nome="adicionar" titulo="Adicionar">
         <formulario id="formadicionar" css="" action="{{route('artistas.store')}}" method="post" enctype="" token="{{csrf_token()}}">
 
+
                 <div class="form-group">
-                    <label for="nome"></label>
                     <input type="text" class="form-control" id="nome"name="nome" placeholder="Nome" value="{{old('nome')}}">
                 </div>
 
+
                 <div class="form-group">
-                    <label for="sobrenome"></label>
                     <input type="text" class="form-control" id="sobrenome"name="sobrenome" placeholder="Sobrenome" value="{{old('sobrenome')}}">
                 </div>
 
+
                 <div class="form-group">
-                    <label for="nomeartistico"></label>
                     <input type="text" class="form-control" id="nomeartistico"name="nomeartistico" placeholder="Nome Artistico" value="{{old('nomeartistico')}}">
                 </div>
 
+
                  <div class="form-group">
-                    <label for="cpf"></label>
                     <input type="text" class="form-control" id="cpf"name="cpf" placeholder="Cpf" value="{{old('cpf')}}">
                 </div>
 
+
                 <div class="form-group">
-                    <label for="email"></label>
                     <input type="text" class="form-control" id="email"name="email" placeholder="E-mail" value="{{old('email')}}">
                 </div>
 
+
                  <div class="form-group">
-                    <label for="estado"></label>
                     <input type="text" class="form-control" id="estado"name="estado" placeholder="Estado" value="{{old('estado')}}">
                 </div>
 
                  <div class="form-group">
-                    <label for="cidade"></label>
                     <input type="text" class="form-control" id="cidade"name="cidade" placeholder="Cidade" value="{{old('cidade')}}">
                 </div>
 
+
                  <div class="form-group">
-                <label for="especialidade"></label>
                     <input type="text" class="form-control" id="especialidade"name="especialidade" placeholder="Especialidade" value="{{old('especialidade')}}">
                 </div>
 
+
                 <div class="form-group">
-                <label for="descricao"></label>
                     <input type="text" class="form-control" id="descricao"name="descricao" placeholder="Descrição" value="{{old('descricao')}}">
                 </div>
 
+
                  <div class="form-group">
-                    <label for="nota"></label>
                     <input type="text" class="form-control" id="nota"name="nota" placeholder="Nota" value="{{old('nota')}}">
                 </div>
 
+
                  <div class="form-group">
-                    <label for="tipoperfil"></label>
                     <input type="text" class="form-control" id="tipoperfil"name="tipoperfil" placeholder="Tipo perfil" value="{{old('tipoperfil')}}">
                 </div>
+
                 <div class="form-group">
-                    <label for="data"></label>
                     <input type="datetime-local" class="form-control" id="data" name="data" value="{{old('data')}}">
                 </div>
 
@@ -102,47 +101,72 @@
 
     </modal>
     <modal nome="editar" titulo="Editar"  >
-    <formulario id="formEditar"  css="" action="#" method="put" enctype="multipart/form-data" token="1234">
+    <formulario id="formEditar"  css="" v-bind:action="'/admin/artistas/'+ $store.state.item.id" method="put" token="{{csrf_token()}}">
 
         <div class="form-group">
-            <label for="nomeartitico">Nome Artístico</label>
-            <input type="text" class="form-control" id="nomeartitico" name="nomeartitico" v-model="$store.state.item.nome" placeholder="Nome Artístico">
+           <input type="text" class="form-control" id="nome" name="nome" v-model="$store.state.item.nome" >
         </div>
 
         <div class="form-group">
-            <label for="estado">Estado</label>
-            <input type="text" class="form-control" id="estado"name="estado" v-model="$store.state.item.estado" placeholder="Estado">
-        </div class="form-group">
-
-        <div>
-        <label for="estado"> Estado</label>
-            <select name="estado" id="estado">
-                <option value="est">@{{$store.state.item.estado}}</option>
-            </select>
-        </div>
-        <div>
-    <label for="cidade">Cidade</label>
-    <input type="text" class="form-control" id="cidade"name="cidade" v-model="$store.state.item.cidade" placeholder="Cidade">
-        </div>
-        <div>
-    <label for="tipo">Tipo</label>
-    <input type="text" class="form-control" id="tipo"name="tipo" v-model="$store.state.item.tipo" placeholder="Tipo">
-        </div>
-        <div>
-            <label for="cpf">CPF</label>
-            <input type="text" class="form-control" id="cpf"name="cpf" v-model="$store.state.item.cpf" placeholder="CPF">
+           <input type="text" class="form-control" id="sobrenome" name="sobrenome" v-model="$store.state.item.sobrenome" >
         </div>
 
+
+        <div class="form-group">
+           <input type="text" class="form-control" id="nomeartistico" name="nomeartistico" v-model="$store.state.item.nomeartistico" >
+        </div>
+
+        <div class="form-group">
+           <input type="text" class="form-control" id="cpf" name="cpf" v-model="$store.state.item.cpf" >
+        </div>
+
+        <div class="form-group">
+           <input type="text" class="form-control" id="email" name="email" v-model="$store.state.item.email" >
+        </div>
+
+        <div class="form-group">
+           <input type="text" class="form-control" id="estado" name="estado" v-model="$store.state.item.estado" >
+        </div>
+
+        <div class="form-group">
+           <input type="text" class="form-control" id="cidade" name="cidade" v-model="$store.state.item.cidade" >
+        </div>
+
+        <div class="form-group">
+           <input type="text" class="form-control" id="especialidade" name="especialidade" v-model="$store.state.item.especialidade" >
+        </div>
+
+        <div class="form-group">
+           <input type="text" class="form-control" id="descricao" name="descricao" v-model="$store.state.item.descricao" >
+        </div>
+
+        <div class="form-group">
+           <input type="text" class="form-control" id="nota" name="nota" v-model="$store.state.item.nota" >
+        </div>
+
+        <div class="form-group">
+           <input type="text" class="form-control" id="tipoperfil" name="tipoperfil" v-model="$store.state.item.tipoperfil" >
+        </div>
+
+        <div class="form-group">
+           <input type="datetime-local" class="form-control" id="data" name="data" v-model="$store.state.item.data" >
+        </div>
 
     </formulario>
         <span slot="botoes">
-         <button form="formEditar" type="button" class="btn btn-danger">Atualizar</button>
+         <button form="formEditar" type="submit" class="btn btn-danger">Atualizar</button>
         </span>
 
 
     </modal>
     <modal nome="detalhe" v-bind:titulo="$store.state.item.nome">
-
+        <p>@{{$store.state.item.sobrenome}}</p>
+        <p>@{{$store.state.item.nomeartistico}}</p>
+        <p>@{{$store.state.item.cpf}}</p>
+        <p>@{{$store.state.item.estado}}</p>
+        <p>@{{$store.state.item.cidade}}</p>
+        <p>@{{$store.state.item.descricao}}</p>
+        <p>@{{$store.state.item.data}}</p>
 
 
     </modal>

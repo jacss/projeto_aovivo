@@ -49289,7 +49289,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     methods: {
-        executaForm: function executaForm() {
+        executaForm: function executaForm(index) {
             document.getElementById(index).submit();
         },
         ordenaColuna: function ordenaColuna(coluna) {
@@ -49442,6 +49442,7 @@ var render = function() {
         _vm._l(_vm.lista, function(item, index) {
           return _c(
             "tr",
+            { key: item.id },
             [
               _vm._l(item, function(i) {
                 return _c("td", [_vm._v(_vm._s(i))])
@@ -49455,7 +49456,7 @@ var render = function() {
                           {
                             attrs: {
                               id: index,
-                              action: _vm.deletar,
+                              action: _vm.deletar + item.id,
                               method: "post"
                             }
                           },
@@ -49483,6 +49484,7 @@ var render = function() {
                               ? _c("modallink", {
                                   attrs: {
                                     item: item,
+                                    url: _vm.detalhe,
                                     tipo: "link",
                                     nome: "detalhe",
                                     titulo: "Detalhe|",
@@ -49502,6 +49504,7 @@ var render = function() {
                                   attrs: {
                                     item: item,
                                     tipo: "link",
+                                    url: _vm.editar,
                                     nome: "editar",
                                     titulo: "Editar|",
                                     css: ""
@@ -49540,6 +49543,7 @@ var render = function() {
                               ? _c("modallink", {
                                   attrs: {
                                     item: item,
+                                    url: _vm.detalhe,
                                     tipo: "link",
                                     nome: "detalhe",
                                     titulo: "Detalhe|",
@@ -49589,6 +49593,7 @@ var render = function() {
                               ? _c("modallink", {
                                   attrs: {
                                     item: item,
+                                    url: _vm.detalhe,
                                     tipo: "link",
                                     nome: "detalhe",
                                     titulo: "Detalhe|",
@@ -49607,6 +49612,8 @@ var render = function() {
                               ? _c("modallink", {
                                   attrs: {
                                     tipo: "link",
+                                    item: item,
+                                    url: _vm.editar,
                                     nome: "editar",
                                     titulo: "Editar",
                                     css: ""
@@ -49991,10 +49998,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['tipo', 'nome', 'titulo', 'css', 'item'],
+    props: ['tipo', 'nome', 'titulo', 'css', 'item', 'url'],
     methods: {
         preencheFormulario: function preencheFormulario() {
-            this.$store.commit('setItem', this.item);
+            var _this = this;
+
+            axios.get(this.url + this.item.id).then(function (res) {
+                _this.$store.commit('setItem', res.data);
+            });
+            //this.$store.commit('setItem', this.item);
         }
     }
 

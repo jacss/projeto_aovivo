@@ -82,6 +82,7 @@ class ArtistasController extends Controller
      */
     public function show($id)
     {
+        return Artista::find($id);
         //
     }
 
@@ -105,7 +106,28 @@ class ArtistasController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data =$request->all();
+        $validacao =\Validator::make($data,[
+            "nome" => "required",
+            "sobrenome" => "required",
+            "nomeartistico" => "required",
+            "cpf" => "required",
+            "email" => "required",
+            "estado" => "required",
+            "cidade" => "required",
+            "especialidade" => "required",
+            "descricao" => "required",
+            "nota" => "required",
+            "tipoperfil" => "required",
+            "data" => "required"
+        ]);
+        if($validacao->fails()){
+            return redirect()->back()->withErrors($validacao)->withInput();
+        }
+
+        $data =$request->all();
+        Artista::find($id)->update($data);
+        return redirect()->back();
     }
 
     /**
@@ -116,6 +138,7 @@ class ArtistasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Artista::find($id)->delete();
+        return redirect()->back();
     }
 }
