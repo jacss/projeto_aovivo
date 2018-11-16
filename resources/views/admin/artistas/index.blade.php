@@ -22,11 +22,15 @@
 
                 <tabela-lista
                 v-bind:titulos="['#','Nome','Sobrenome','Nome Artístico','Cpf','Estado','Cidade','Especialidade','Descrição']"
-                v-bind:itens="{{$listaArtistas}}"
+                v-bind:itens="{{json_encode($listaArtistas)}}"
                 ordem="desc" ordemcol="1"
                 criar="criar" detalhe="/admin/artistas/" editar="/admin/artistas/" deletar="/admin/artistas/" token="{{csrf_token()}}"
                 modal ="sim"
                 ></tabela-lista>
+                <div align="center">
+                    <!-- Traz a paginação-->
+                        {{$listaArtistas}}
+                </div>
 
             </painel>
     </pagina>

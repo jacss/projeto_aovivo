@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Validation\Rule;
 
-use App\Artista;
 
-class ArtistasController extends Controller
+class UsuariosController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,12 +19,11 @@ class ArtistasController extends Controller
     {
         $listaMigalhas= json_encode([
             ["titulo"=>"Home ","url"=>route('home')],
-            ["titulo"=>" / Lista de Artistas","url"=>""]
+            ["titulo"=>" / Lista de Usuários","url"=>""]
         ]);
 
-        $listaArtistas=(Artista::select('id','nome','sobrenome','nomeartistico','cpf','estado','cidade','especialidade','descricao')->paginate(2));
-        return view('admin.artistas.index',compact('listaMigalhas','listaArtistas'));
-        //
+        $listaModelo=(User::select('id','name','email')->paginate(2));
+        return view('admin.usuarios.index',compact('listaMigalhas','listaModelo'));
     }
 
     /**
@@ -44,30 +44,20 @@ class ArtistasController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request->all());
         $data =$request->all();
         $validacao =\Validator::make($data,[
-            "nome" => "required",
-            "sobrenome" => "required",
-            "nomeartistico" => "required",
-            "cpf" => "required",
-            "email" => "required",
-            "estado" => "required",
-            "cidade" => "required",
-            "especialidade" => "required",
-            "descricao" => "required",
-            "nota" => "required",
-            "tipoperfil" => "required",
-            "data" => "required"
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:6',
         ]);
         if($validacao->fails()){
             return redirect()->back()->withErrors($validacao)->withInput();
         }
+        $data['password'] = bcrypt($data['password']);
 
         $data =$request->all();
-        Artista::create($data);
+        User::create($data);
         return redirect()->back();
-
     }
 
     /**
@@ -78,8 +68,7 @@ class ArtistasController extends Controller
      */
     public function show($id)
     {
-        return Artista::find($id);
-        //
+        return User::find($id);
     }
 
     /**
@@ -103,26 +92,31 @@ class ArtistasController extends Controller
     public function update(Request $request, $id)
     {
         $data =$request->all();
-        $validacao =\Validator::make($data,[
-            "nome" => "required",
-            "sobrenome" => "required",
-            "nomeartistico" => "required",
-            "cpf" => "required",
-            "email" => "required",
-            "estado" => "required",
-            "cidade" => "required",
-            "especialidade" => "required",
-            "descricao" => "required",
-            "nota" => "required",
-            "tipoperfil" => "required",
-            "data" => "required"
-        ]);
+//teste
+        if(isset($data['password']) && $data['password']!=""){
+            $validacao =\Validator::make($data,[
+                'name' => 'required|string|max:255',
+                //'email' => 'required|string|email|max:255|unique:users',
+                'email' => ['required','string','email','max:255',Rule::unique('users')->ignore($id)],
+                'password' => 'required|string|min:6',
+            ]);
+            $data['password'] = bcrypt($data['password']);
+        }else{
+            $validacao =\Validator::make($data,[
+                'name' => 'required|string|max:255',
+                'email' => ['required','string','email','max:255',Rule::unique('users')->ignore($id)]
+               // 'email' => 'required|string|email|max:255|unique:users'
+
+            ]);
+                unset($data['password']);
+        }
+
         if($validacao->fails()){
             return redirect()->back()->withErrors($validacao)->withInput();
         }
 
-        $data =$request->all();
-        Artista::find($id)->update($data);
+       //$data =$request->all();
+        User::find($id)->update($data);
         return redirect()->back();
     }
 
@@ -134,7 +128,7 @@ class ArtistasController extends Controller
      */
     public function destroy($id)
     {
-        Artista::find($id)->delete();
+        User::find($id)->delete();
         return redirect()->back();
     }
 }
