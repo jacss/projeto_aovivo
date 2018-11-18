@@ -8,17 +8,17 @@
 
                    <div class="row">
                        <div class="col-md-6 ">
-                          <caixa qtd="80" titulo="ARTISTAS NA PLATAFORMA" url="{{route('artistas.index')}}" cor="orange" icone="ion-ios-people"></caixa>
+                          <caixa qtd="{{$totalArtistas}}" titulo="ARTISTAS NA PLATAFORMA" url="{{route('artistas.index')}}" cor="orange" icone="ion-ios-people"></caixa>
 
                        </div>
 
                         <div class="col-md-6">
-                        <caixa qtd="50" titulo="ESTABELECIMENTO NA PLATAFORMA" url="#teste" cor="red" icone="ion-ios-people"></caixa>
+                        <caixa qtd="{{$totalEstabelecimentos}}" titulo="ESTABELECIMENTO NA PLATAFORMA" url="{{route('estabelecimentos.index')}}" cor="red" icone="ion-ios-people"></caixa>
 
                        </div>
 
                         <div class="col-md-6">
-                        <caixa qtd="R$ 350,00" titulo="USUÁRIOS" url="{{route('usuarios.index')}}" cor="green" icone="ion-cash"></caixa>
+                        <caixa qtd="{{$totalUsusarios}}" titulo="USUÁRIOS" url="{{route('usuarios.index')}}" cor="green" icone="ion-cash"></caixa>
                         </div>
 
                         <div class="col-md-6">

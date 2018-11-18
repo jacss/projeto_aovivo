@@ -48937,6 +48937,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['qtd', 'titulo', 'url', 'cor', 'icone'],
@@ -49735,7 +49736,7 @@ var render = function() {
     "ol",
     { staticClass: "breadcrumb" },
     _vm._l(_vm.lista, function(item) {
-      return _c("li", [
+      return _c("li", { key: item.id }, [
         item.url
           ? _c("a", { class: _vm.defineClass, attrs: { href: item.url } }, [
               _vm._v(_vm._s(item.titulo))

@@ -1,4 +1,5 @@
 <template>
+
     <div class="small-box" v-bind:style="defineCor">
     <div class="inner">
         <h3>{{qtd}}</h3>

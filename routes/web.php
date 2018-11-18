@@ -22,5 +22,6 @@ Route::middleware(['auth'])->prefix('admin')->namespace('Admin')->group(function
 
     Route::resource('artistas', 'ArtistasController');
     Route::resource('usuarios', 'UsuariosController');
+    Route::resource('estabelecimentos', 'EstabelecimentoController');
 
 });

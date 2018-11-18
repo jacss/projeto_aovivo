@@ -79,7 +79,8 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                   AO VIVO
+                    AO VIVO
+
                 </div>
 
                 <div class="links">

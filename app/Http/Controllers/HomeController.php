@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Artista;
+use App\User;
+use App\Estabelecimento;
 
 class HomeController extends Controller
 {
@@ -27,6 +30,9 @@ class HomeController extends Controller
             ["titulo"=>"Home","url"=>""]
 
         ]);
-        return view('home', compact('listaMigalhas'));
+        $totalArtistas =Artista::count();
+        $totalEstabelecimentos=Estabelecimento::count();
+        $totalUsusarios=User::count();
+        return view('home', compact('listaMigalhas','totalArtistas','totalEstabelecimentos','totalUsusarios'));
     }
 }
